@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[Author Name] | Author</title>
+  <meta name="description" content="[Author Name] — author of [Book Title One] and more. Find her books on Amazon.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=IM+Fell+English:ital@0;1&family=Crimson+Pro:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page">
+
+    <!-- NAV -->
+    <header class="nav container">
+      <a href="#top" class="logo">[Author Name]</a>
+      <nav aria-label="Main">
+        <a href="#books">Books</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <!-- HERO -->
+    <section id="top" class="hero container">
+      <div class="moon" aria-hidden="true">
+        <div class="moon-glow"></div>
+        <svg viewBox="0 0 200 200" width="100%" height="100%">
+          <circle cx="100" cy="100" r="92" fill="#efe3b8"/>
+          <circle cx="70" cy="78" r="14" fill="#e2d4a0" opacity="0.7"/>
+          <circle cx="128" cy="120" r="20" fill="#e2d4a0" opacity="0.6"/>
+          <circle cx="112" cy="62" r="7" fill="#e2d4a0" opacity="0.7"/>
+          <circle cx="76" cy="140" r="9" fill="#e2d4a0" opacity="0.5"/>
+        </svg>
+      </div>
+
+      <div class="hero-text">
+        <p class="eyebrow">— Tales for the curious &amp; the slightly haunted —</p>
+        <h1>Stories that creak<br><span>after midnight.</span></h1>
+        <p class="lede">[A one- or two-sentence introduction to her writing — what readers can expect from her books.]</p>
+        <div class="hero-actions">
+          <a class="btn btn-solid" href="#books">
+            Browse the books
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="btn btn-ghost" href="#about">Meet the author</a>
+        </div>
+      </div>
+
+      <div class="hero-cover-wrap">
+        <div class="hero-cover">
+          <div class="layer layer-back" aria-hidden="true"></div>
+          <div class="layer layer-mid" aria-hidden="true"></div>
+          <!-- Swap the placeholder div below for:
+               <img class="featured" src="images/featured-cover.jpg" alt="Cover of [Book Title]"> -->
+          <div class="featured placeholder">
+            <span class="tag">NEWEST RELEASE</span>
+            <span class="ph-title">[Featured Book Cover]</span>
+            <span class="ph-note">full-color cover goes here</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TREE LINE -->
+    <div class="treeline" aria-hidden="true">
+      <svg viewBox="0 0 1440 180" preserveAspectRatio="none" width="100%" height="180">
+        <path d="M0 180 L0 150 Q120 140 240 152 T480 148 T720 156 T960 146 T1200 154 T1440 148 L1440 180 Z" fill="#07060b"/>
+        <g stroke="#07060b" fill="none" stroke-linecap="round">
+          <path stroke-width="7" d="M140 152 C142 110 128 92 150 60 M150 60 C160 48 176 46 186 30 M150 60 C138 50 120 52 112 38 M146 92 C160 86 170 92 182 80"/>
+          <path stroke-width="8" d="M1180 154 C1176 120 1196 96 1182 64 C1176 50 1190 34 1206 26 M1182 64 C1170 56 1154 60 1146 44 M1186 104 C1200 100 1214 106 1226 94 C1232 88 1240 90 1250 82"/>
+          <path stroke-width="5" d="M640 156 C644 132 634 120 646 100 M646 100 C652 92 664 92 670 82 M646 100 C638 94 628 96 622 86"/>
+        </g>
+      </svg>
+    </div>
+    <div class="fog fog-1" aria-hidden="true"></div>
+
+    <!-- BOOKS -->
+    <section id="books" class="books">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">from the bookshelf</p>
+          <h2>The Books</h2>
+          <svg class="flourish" width="220" height="34" viewBox="0 0 220 34" fill="none" stroke="#c9b8dc" stroke-width="1.4" stroke-linecap="round" aria-hidden="true">
+            <path d="M10 17 H80 C88 17 92 9 100 9 C108 9 112 17 106 22 C101 26 94 21 98 16"/>
+            <path d="M210 17 H140 C132 17 128 25 120 25 C112 25 108 17 114 12 C119 8 126 13 122 18"/>
+            <circle cx="110" cy="17" r="2.2" fill="#c9b8dc"/>
+          </svg>
+        </div>
+
+        <div class="book-grid">
+          <!-- To add a book, copy one <article> block. Replace the placeholder div with:
+               <img class="cover" src="images/book-1.jpg" alt="Cover of [Book Title]"> -->
+          <article class="book">
+            <div class="cover placeholder tilt-left"><span>[Cover 1]</span></div>
+            <h3>[Book Title One]</h3>
+            <p>[One-sentence hook about the book.]</p>
+            <a class="btn btn-solid" href="#" target="_blank" rel="noopener">Buy on Amazon</a>
+          </article>
+
+          <article class="book">
+            <div class="cover placeholder tilt-right"><span>[Cover 2]</span></div>
+            <h3>[Book Title Two]</h3>
+            <p>[One-sentence hook about the book.]</p>
+            <a class="btn btn-solid" href="#" target="_blank" rel="noopener">Buy on Amazon</a>
+          </article>
+
+          <article class="book">
+            <div class="cover placeholder tilt-slight"><span>[Cover 3]</span></div>
+            <h3>[Book Title Three]</h3>
+            <p>[One-sentence hook about the book.]</p>
+            <a class="btn btn-solid" href="#" target="_blank" rel="noopener">Buy on Amazon</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <div class="stripes" aria-hidden="true"></div>
+
+    <!-- ABOUT -->
+    <section id="about" class="about">
+      <div class="container about-inner">
+        <div class="portrait-wrap">
+          <div class="portrait">
+            <div class="portrait-ring" aria-hidden="true"></div>
+            <!-- Swap for: <img class="portrait-img" src="images/author.jpg" alt="Portrait of [Author Name]"> -->
+            <div class="portrait-img placeholder"><span>[Author Photo]</span></div>
+          </div>
+        </div>
+        <div class="about-text">
+          <p class="eyebrow">about the author</p>
+          <h2 class="author-name">[Author Name]</h2>
+          <p>[Her bio, paragraph one — who she is, where she writes from, what draws her to the stories she tells.]</p>
+          <p>[Paragraph two — background, other interests, a personal detail readers would enjoy.]</p>
+          <blockquote>“[A favorite line from her writing, or a short review blurb.]”</blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <footer id="contact" class="contact">
+      <h2>Send a letter by moonlight</h2>
+      <p>For readers, book clubs and press inquiries.</p>
+      <a class="btn btn-outline" href="mailto:hello@example.com">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+        [her email address]
+      </a>
+      <div class="rule" aria-hidden="true"></div>
+      <p class="copyright">© <span id="year">2026</span> [Author Name]. All rights reserved.</p>
+    </footer>
+
+  </div>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
