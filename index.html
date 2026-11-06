@@ -10,18 +10,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&amp;family=IM+Fell+English:ital@0;1&amp;family=Crimson+Pro:ital,wght@0,400;0,500;1,400&amp;family=Special+Elite&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <style>
-  /* Google Translate widget, styled to match the nav */
-  #google_translate_element .goog-te-gadget-simple {
-    background: transparent !important; border: 1px solid rgba(214,205,224,0.45) !important;
-    border-radius: 999px; padding: 2px 12px !important; font-size: 0.95rem !important;
+  /* EN | 日本語 language toggle */
+  .lang-toggle { display: inline-flex; border: 1px solid rgba(242,227,166,0.55); border-radius: 999px; padding: 3px; gap: 2px; }
+  .lang-toggle button {
+    all: unset; cursor: pointer; padding: 3px 14px; border-radius: 999px;
+    font-family: 'IM Fell English', serif; font-size: 1rem; font-style: normal; line-height: 1.5;
+    color: #d6cde0; transition: background 0.2s, color 0.2s;
   }
-  #google_translate_element .goog-te-gadget-simple a,
-  #google_translate_element .goog-te-gadget-simple span {
-    color: #d6cde0 !important; font-family: 'IM Fell English', serif !important;
-    text-decoration: none !important; border: none !important;
-  }
-  #google_translate_element .goog-te-gadget-icon { display: none !important; }
-  /* hide Google's banner bar and hover highlights */
+  .lang-toggle button[lang="ja"] { font-family: 'Hiragino Mincho ProN', 'Yu Mincho', 'Noto Serif JP', serif; font-size: 0.9rem; }
+  .lang-toggle button:hover { color: #f2e3a6; }
+  .lang-toggle button[aria-pressed="true"] { background: #f2e3a6; color: #1a1020; }
+  .lang-toggle button:focus-visible { outline: 2px solid #f2e3a6; outline-offset: 2px; }
+  /* Google's own widget does the translating but stays hidden */
+  #google_translate_element { position: absolute; left: -9999px; top: 0; }
   body > div.skiptranslate, .goog-te-banner-frame { display: none !important; }
   body { top: 0 !important; }
   .goog-tooltip, #goog-gt-tt { display: none !important; }
@@ -39,7 +40,11 @@
       <a href="#sketchbook" style="color: #d6cde0; text-decoration: none">Sketchbook</a>
       <a href="#about" style="color: #d6cde0; text-decoration: none">About</a>
       <a href="#contact" style="color: #d6cde0; text-decoration: none">Contact</a>
-      <div id="google_translate_element" style="font-style: normal"></div>
+      <div class="lang-toggle notranslate" role="group" aria-label="Language">
+        <button type="button" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang="ja" lang="ja" aria-pressed="false">日本語</button>
+      </div>
+      <div id="google_translate_element" aria-hidden="true"></div>
     </nav>
   </header>
 
@@ -232,10 +237,41 @@
     new google.translate.TranslateElement({
       pageLanguage: 'en',
       includedLanguages: 'en,ja',
-      layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
       autoDisplay: false
     }, 'google_translate_element');
   }
+
+  (function () {
+    var buttons = document.querySelectorAll('.lang-toggle button');
+    function mark(lang) {
+      buttons.forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.lang === lang ? 'true' : 'false'); });
+    }
+    function toJapanese(tries) {
+      var combo = document.querySelector('.goog-te-combo');
+      if (combo) {
+        combo.value = 'ja';
+        combo.dispatchEvent(new Event('change'));
+      } else if (tries < 30) {
+        setTimeout(function () { toJapanese(tries + 1); }, 200);
+      }
+    }
+    function toEnglish() {
+      var gone = '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+      var host = location.hostname;
+      document.cookie = 'googtrans' + gone;
+      document.cookie = 'googtrans' + gone + '; domain=' + host;
+      document.cookie = 'googtrans' + gone + '; domain=.' + host.replace(/^www\./, '');
+      location.reload();
+    }
+    buttons.forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (b.getAttribute('aria-pressed') === 'true') return;
+        mark(b.dataset.lang);
+        if (b.dataset.lang === 'ja') toJapanese(0); else toEnglish();
+      });
+    });
+    if (/googtrans=\/en\/ja/.test(document.cookie)) mark('ja');
+  })();
 </script>
 <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
