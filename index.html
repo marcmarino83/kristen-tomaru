@@ -9,18 +9,37 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&amp;family=IM+Fell+English:ital@0;1&amp;family=Crimson+Pro:ital,wght@0,400;0,500;1,400&amp;family=Special+Elite&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<style>
+  /* Google Translate widget, styled to match the nav */
+  #google_translate_element .goog-te-gadget-simple {
+    background: transparent !important; border: 1px solid rgba(214,205,224,0.45) !important;
+    border-radius: 999px; padding: 2px 12px !important; font-size: 0.95rem !important;
+  }
+  #google_translate_element .goog-te-gadget-simple a,
+  #google_translate_element .goog-te-gadget-simple span {
+    color: #d6cde0 !important; font-family: 'IM Fell English', serif !important;
+    text-decoration: none !important; border: none !important;
+  }
+  #google_translate_element .goog-te-gadget-icon { display: none !important; }
+  /* hide Google's banner bar and hover highlights */
+  body > div.skiptranslate, .goog-te-banner-frame { display: none !important; }
+  body { top: 0 !important; }
+  .goog-tooltip, #goog-gt-tt { display: none !important; }
+  .goog-text-highlight { background: none !important; box-shadow: none !important; }
+</style>
 </head>
 <body>
 <div style="position: relative; min-height: 100vh; overflow: hidden; background: radial-gradient(ellipse at 70% 10%, #2a1a3a 0%, #151026 35%, #0d0b14 70%); color: #ece4d4; font-family: 'Crimson Pro', Georgia, serif; font-size: 1.15rem; line-height: 1.65">
-
+  
   <!-- NAV -->
   <header style="position: relative; z-index: 5; max-width: 1200px; margin: 0 auto; padding: 28px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
-    <a href="#top" style="text-decoration: none; color: #ece4d4; font-family: 'Mountains of Christmas', 'IM Fell English', serif; font-size: 2rem; letter-spacing: 1px">Kristen Tomaru</a>
-    <nav aria-label="Main" style="display: flex; flex-wrap: wrap; gap: 28px; font-family: 'IM Fell English', serif; font-size: 1.1rem; font-style: italic">
+    <a href="#top" class="notranslate" style="text-decoration: none; color: #ece4d4; font-family: 'Mountains of Christmas', 'IM Fell English', serif; font-size: 2rem; letter-spacing: 1px">Kristen Tomaru</a>
+    <nav aria-label="Main" style="display: flex; flex-wrap: wrap; align-items: center; gap: 28px; font-family: 'IM Fell English', serif; font-size: 1.1rem; font-style: italic">
       <a href="#books" style="color: #d6cde0; text-decoration: none">Books</a>
       <a href="#sketchbook" style="color: #d6cde0; text-decoration: none">Sketchbook</a>
       <a href="#about" style="color: #d6cde0; text-decoration: none">About</a>
       <a href="#contact" style="color: #d6cde0; text-decoration: none">Contact</a>
+      <div id="google_translate_element" style="font-style: normal"></div>
     </nav>
   </header>
 
@@ -40,7 +59,7 @@
 
     <div style="flex: 1 1 420px; min-width: 0; max-width: 580px">
       <p style="margin: 0 0 18px; font-family: 'IM Fell English', serif; font-style: italic; color: #f2e3a6; font-size: 1.2rem; letter-spacing: 0.5px">— from the gruesome imagination of —</p>
-      <h1 style="margin: 0; font-family: 'Mountains of Christmas', 'IM Fell English', serif; font-weight: 700; font-size: clamp(3.2rem, 7vw, 5.4rem); line-height: 1; color: #f4ede0">Kristen<br><span style="color: #c9b8dc">Tomaru</span></h1>
+      <h1 class="notranslate" style="margin: 0; font-family: 'Mountains of Christmas', 'IM Fell English', serif; font-weight: 700; font-size: clamp(3.2rem, 7vw, 5.4rem); line-height: 1; color: #f4ede0">Kristen<br><span style="color: #c9b8dc">Tomaru</span></h1>
       <p style="margin: 26px 0 0; color: #c4bad0; max-width: 480px">Werewolves, dragons and the things that wait under the bed — written and drawn in ink by an author who never stopped sketching monsters.</p>
       <div style="display: flex; flex-wrap: wrap; gap: 16px; margin-top: 36px">
         <a class="btn" href="#books" style="display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 28px; border-radius: 999px; background: #f2e3a6; color: #1a1020; text-decoration: none; font-family: 'IM Fell English', serif; font-size: 1.1rem">
@@ -90,7 +109,7 @@
 
         <article style="display: flex; flex-direction: column; align-items: center; text-align: center">
           <img class="book" src="images/night-terrors-cover.jpg" alt="Night Terrors cover" style="width: 260px; height: 290px; object-fit: cover; transform: rotate(-3deg); border: 8px solid #2a2033; outline: 1px solid rgba(236,228,212,0.3); box-shadow: 0 24px 50px rgba(0,0,0,0.8)">
-          <h3 style="margin: 34px 0 0; font-family: 'IM Fell English', serif; font-weight: 400; font-size: 1.9rem; color: #f4ede0">Night Terrors</h3>
+          <h3 class="notranslate" style="margin: 34px 0 0; font-family: 'IM Fell English', serif; font-weight: 400; font-size: 1.9rem; color: #f4ede0">Night Terrors</h3>
           <p style="margin: 8px 0 0; color: #b8aec2; max-width: 320px; font-style: italic">“These creatures haunt your every dream. They want to hear you fight and scream.”</p>
           <p style="margin: 10px 0 0; color: #b8aec2; max-width: 320px; font-size: 1rem">Short stories told as rhyming poems, each about a different creature of the night, with black-and-white illustrations by the author.</p>
           <a class="btn" href="https://www.amazon.com/dp/1737817403" target="_blank" rel="noopener" style="margin-top: 22px; display: inline-flex; align-items: center; min-height: 46px; padding: 0 24px; border-radius: 999px; background: #f2e3a6; color: #1a1020; text-decoration: none; font-family: 'IM Fell English', serif">Buy on Amazon</a>
@@ -98,7 +117,7 @@
 
         <article style="display: flex; flex-direction: column; align-items: center; text-align: center">
           <img class="book" src="images/slaughter-cover.jpg" alt="Slaughter: A Werewolf Story cover, red title over a skeletal wolf drawing" style="width: 260px; height: 300px; object-fit: cover; transform: rotate(2.5deg); border: 8px solid #2a2033; outline: 1px solid rgba(236,228,212,0.3); box-shadow: 0 24px 50px rgba(0,0,0,0.8)">
-          <h3 style="margin: 30px 0 0; font-family: 'IM Fell English', serif; font-weight: 400; font-size: 1.9rem; color: #f4ede0">Slaughter</h3>
+          <h3 class="notranslate" style="margin: 30px 0 0; font-family: 'IM Fell English', serif; font-weight: 400; font-size: 1.9rem; color: #f4ede0">Slaughter</h3>
           <p style="margin: 2px 0 0; font-family: 'Special Elite', monospace; color: #e0715f; font-size: 1rem">A Werewolf Story</p>
           <p style="margin: 8px 0 0; color: #b8aec2; max-width: 320px">[One-sentence hook about Slaughter.]</p>
           <a class="btn" href="https://www.amazon.com/dp/1737817411" target="_blank" rel="noopener" style="margin-top: 22px; display: inline-flex; align-items: center; min-height: 46px; padding: 0 24px; border-radius: 999px; background: #f2e3a6; color: #1a1020; text-decoration: none; font-family: 'IM Fell English', serif">Buy on Amazon</a>
@@ -185,7 +204,7 @@
       </div>
       <div style="flex: 999 1 420px; min-width: 0">
         <p style="margin: 0; font-family: 'IM Fell English', serif; font-style: italic; color: #f2e3a6">about the author</p>
-        <h2 style="margin: 6px 0 24px; font-family: 'Mountains of Christmas', 'IM Fell English', serif; font-size: clamp(2.4rem, 4.5vw, 3.4rem); color: #f4ede0; line-height: 1.1">Kristen Tomaru</h2>
+        <h2 class="notranslate" style="margin: 6px 0 24px; font-family: 'Mountains of Christmas', 'IM Fell English', serif; font-size: clamp(2.4rem, 4.5vw, 3.4rem); color: #f4ede0; line-height: 1.1">Kristen Tomaru</h2>
         <p style="margin: 0 0 18px; color: #d6cde0">Kristen Tomaru was born a human baby in California and raised in New York. For as long as she can remember, she’s been drawing, dreaming up, and bringing to life beautiful, wacky, and wonderfully creepy creatures.</p>
         <p style="margin: 0 0 18px; color: #d6cde0">Fueled by her delightfully twisted imagination, Kristen’s creations have crawled off the page and into her books, puppetry, and all manner of peculiar projects. Somewhere along the way, she also managed to raise her beautiful daughter, Sunshine, proving that even the most twisted minds can create something truly wonderful.</p>
         <p style="margin: 0 0 18px; color: #d6cde0">Her colorful, creepy creations bring a curious mix of unease and delight to those who dare to explore her work. But beware! The gnarly fingers of her imagination are always reaching out, ready to snatch up the next unsuspecting soul.</p>
@@ -208,5 +227,16 @@
   </footer>
 
 </div>
+<script>
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'en',
+      includedLanguages: 'en,ja',
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+      autoDisplay: false
+    }, 'google_translate_element');
+  }
+</script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
