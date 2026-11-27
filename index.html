@@ -27,6 +27,153 @@
   body { top: 0 !important; }
   .goog-tooltip, #goog-gt-tt { display: none !important; }
   .goog-text-highlight { background: none !important; box-shadow: none !important; }
+
+  /* Gold Instagram pill button (videos section + footer) */
+  .ig-btn {
+    display: inline-flex; align-items: center; gap: 12px; min-height: 56px; padding: 0 34px;
+    border-radius: 999px; background: #f2e3a6; color: #1a1020; text-decoration: none;
+    font-family: 'IM Fell English', serif; font-size: 1.25rem;
+    box-shadow: 0 0 28px rgba(242,227,166,0.35), 0 10px 30px rgba(0,0,0,0.5);
+    transition: transform .2s, box-shadow .2s, background .2s;
+  }
+  .ig-btn:hover { color: #1a1020; background: #f7ebbb; box-shadow: 0 0 40px rgba(242,227,166,0.55), 0 12px 34px rgba(0,0,0,0.55); }
+  .ig-btn:focus-visible { outline: 2px solid #f2e3a6; outline-offset: 4px; }
+
+  /* VIDEOS section */
+  .videos { position: relative; z-index: 2; background: #07060b; padding: 72px 24px 96px; }
+  .videos-intro { max-width: 1000px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 56px; }
+  .videos-intro .puppet-col { flex: 1 1 280px; display: flex; justify-content: center; }
+  .videos-intro .text-col { flex: 999 1 380px; min-width: 0; text-align: center; }
+
+  /* Video carousel: coverflow stage */
+  .reel-wrap { --cw: clamp(220px, 24vw, 300px); position: relative; max-width: 1060px; margin: 56px auto 0; padding: 0 56px; }
+  .reel-stage {
+    position: relative; height: calc((var(--cw) - 20px) * 4 / 3 + 140px);
+    overflow-x: hidden; overflow-x: clip; touch-action: pan-y;
+  }
+  .reel-stage:focus-visible { outline: 2px solid rgba(242,227,166,0.6); outline-offset: -2px; border-radius: 6px; }
+
+  /* Video cards: framed prints */
+  .reel-card {
+    all: unset; box-sizing: border-box; position: absolute; top: 30px; left: 50%;
+    width: var(--cw); margin-left: calc(var(--cw) / -2); display: block; cursor: pointer;
+    background: #ece4d4; padding: 10px 10px 0;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.85);
+    --x: 0%; --s: 1; --r: 0deg; --b: 1; --lift: 0px;
+    transform: translateX(var(--x)) translateY(var(--lift)) scale(var(--s)) rotate(var(--r));
+    filter: brightness(var(--b));
+    transition: transform .55s cubic-bezier(.25,.8,.25,1), filter .55s ease, box-shadow .55s ease, opacity .55s ease, visibility .55s;
+    -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent;
+  }
+  .reel-card[data-pos="0"]  { z-index: 10; box-shadow: 0 30px 60px rgba(0,0,0,0.85), 0 0 70px 8px rgba(242,227,166,0.15); }
+  .reel-card[data-pos="-1"] { z-index: 9; --x: -60%;  --s: .82; --r: -2deg; --b: .6; }
+  .reel-card[data-pos="1"]  { z-index: 9; --x: 60%;   --s: .82; --r: 2deg;  --b: .6; }
+  .reel-card[data-pos="-2"] { z-index: 8; --x: -100%; --s: .66; --r: -3deg; --b: .4; }
+  .reel-card[data-pos="2"]  { z-index: 8; --x: 100%;  --s: .66; --r: 3deg;  --b: .4; }
+  .reel-card[data-pos="-3"] { z-index: 7; --x: -135%; --s: .52; --r: -4deg; --b: .25; }
+  .reel-card[data-pos="3"]  { z-index: 7; --x: 135%;  --s: .52; --r: 4deg;  --b: .25; }
+  .reel-card[data-pos="far-l"], .reel-card[data-pos="far-r"] { z-index: 1; --s: .4; --b: .2; opacity: 0; visibility: hidden; pointer-events: none; }
+  .reel-card[data-pos="far-l"] { --x: -160%; }
+  .reel-card[data-pos="far-r"] { --x: 160%; }
+  .reel-card[data-pos="0"]:hover, .reel-card[data-pos="0"]:focus-visible { --lift: -6px; }
+  .reel-card:focus-visible { outline: 2px solid #f2e3a6; outline-offset: 4px; }
+  .reel-cover {
+    position: relative; display: block; aspect-ratio: 3 / 4; overflow: hidden;
+    background: radial-gradient(ellipse at 50% 30%, #2a1a3a 0%, #151026 45%, #0d0b14 85%);
+  }
+  .reel-cover img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; -webkit-user-drag: none; }
+  /* outline-style play button, only on the center card */
+  .reel-play {
+    position: absolute; z-index: 1; top: 50%; left: 50%; width: 56px; height: 56px; margin: -28px 0 0 -28px;
+    box-sizing: border-box; border-radius: 50%; border: 2px solid #ece4d4; background: rgba(7,6,11,0.25); color: #ece4d4;
+    display: flex; align-items: center; justify-content: center;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.6));
+    opacity: 0; transform: scale(.85);
+    transition: opacity .35s ease, transform .35s ease, border-color .2s ease, color .2s ease, filter .2s ease;
+  }
+  .reel-play svg { width: 20px; height: 20px; margin-left: 2px; } /* nudge right so the triangle looks centered */
+  .reel-card[data-pos="0"] .reel-play { opacity: .9; transform: none; }
+  .reel-card[data-pos="0"]:hover .reel-play, .reel-card[data-pos="0"]:focus-visible .reel-play {
+    opacity: 1; border-color: #f2e3a6; color: #f2e3a6;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.6)) drop-shadow(0 0 8px rgba(242,227,166,0.45));
+  }
+  .reel-title {
+    display: block; padding: 12px 4px 14px; text-align: center;
+    font-family: 'IM Fell English', serif; font-style: italic; font-size: 1.15rem; line-height: 1.25; color: #1a1020;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+
+  /* thin chevron arrows, vertically centered on the cards */
+  .reel-arrow {
+    all: unset; box-sizing: border-box; position: absolute; z-index: 20;
+    top: calc(30px + ((var(--cw) - 20px) * 4 / 3 + 59px) / 2); margin-top: -48px;
+    width: 48px; height: 96px; display: flex; align-items: center; justify-content: center;
+    background: transparent; color: #f2e3a6; opacity: .6; cursor: pointer; border-radius: 6px;
+    transition: opacity .2s ease, transform .2s ease, filter .2s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .reel-arrow svg { display: block; width: 22px; height: 66px; overflow: visible; }
+  .reel-arrow:hover, .reel-arrow:focus-visible { opacity: 1; filter: drop-shadow(0 0 8px rgba(242,227,166,0.6)); }
+  .reel-arrow.prev:hover, .reel-arrow.prev:focus-visible { transform: translateX(-3px); }
+  .reel-arrow.next:hover, .reel-arrow.next:focus-visible { transform: translateX(3px); }
+  .reel-arrow:focus-visible { outline: 2px solid #f2e3a6; outline-offset: 3px; }
+  .reel-arrow.prev { left: 0; }
+  .reel-arrow.next { right: 0; }
+
+  /* one dot per video */
+  .reel-dots { display: flex; flex-wrap: wrap; justify-content: center; gap: 2px; margin-top: 10px; }
+  .reel-dot { all: unset; box-sizing: border-box; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 50%; }
+  .reel-dot::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: #5a4f66; transition: background .3s, transform .3s; }
+  .reel-dot:hover::before { background: #8a7d98; }
+  .reel-dot[aria-current="true"]::before { background: #f2e3a6; transform: scale(1.25); }
+  .reel-dot:focus-visible { outline: 2px solid #f2e3a6; outline-offset: -2px; }
+
+  /* Video pop-up player */
+  .reel-modal {
+    position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center;
+    padding: 24px 80px; background: rgba(7,6,11,0.92);
+    -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+    opacity: 0; transition: opacity .25s ease;
+  }
+  .reel-modal[hidden] { display: none; }
+  .reel-modal.is-open { opacity: 1; }
+  .reel-modal-panel { max-height: 90vh; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #2a2033 transparent; text-align: center; padding: 4px; }
+  .reel-modal-frame { width: min(400px, 92vw); box-sizing: border-box; background: #2a2033; padding: 8px; outline: 1px solid rgba(236,228,212,0.25); box-shadow: 0 30px 70px rgba(0,0,0,0.9); }
+  .reel-modal-frame iframe { display: block; width: 100%; border: 0; background: #fff; }
+  .reel-modal-frame video { display: block; width: 100%; max-height: 80vh; background: #000; }
+  .reel-modal-link { display: inline-block; margin-top: 14px; font-family: 'IM Fell English', serif; font-style: italic; font-size: 1rem; color: #f2e3a6; text-decoration: none; }
+  .reel-modal-link:hover { color: #fff6cf; text-decoration: underline; }
+  .reel-modal-link[hidden] { display: none; }
+  .reel-modal-btn {
+    all: unset; box-sizing: border-box; position: fixed; z-index: 2;
+    width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    background: #f2e3a6; color: #1a1020; cursor: pointer;
+    box-shadow: 0 0 22px rgba(242,227,166,0.3), 0 8px 20px rgba(0,0,0,0.6); transition: background .2s;
+  }
+  .reel-modal-btn:hover { background: #f7ebbb; }
+  .reel-modal-btn:focus-visible { outline: 2px solid #f2e3a6; outline-offset: 3px; }
+  .reel-modal-btn[hidden] { display: none; }
+  .reel-modal-close { top: 20px; right: 20px; }
+  .reel-modal-prev, .reel-modal-next { top: 50%; margin-top: -24px; }
+  .reel-modal-prev { left: 20px; }
+  .reel-modal-next { right: 20px; }
+
+  @media (max-width: 699px) {
+    .videos { padding: 64px 16px 80px; }
+    .reel-wrap { padding: 0; margin: 44px -16px 0; }
+    .reel-play { width: 44px; height: 44px; margin: -22px 0 0 -22px; }
+    .reel-play svg { width: 16px; height: 16px; }
+    .reel-arrow.prev { left: 2px; }
+    .reel-arrow.next { right: 2px; }
+    .reel-modal { align-items: flex-start; padding: 76px 4vw 84px; }
+    .reel-modal-panel { max-height: calc(100vh - 160px); max-height: calc(100dvh - 160px); }
+    .reel-modal-close { top: 14px; right: 14px; }
+    .reel-modal-prev, .reel-modal-next { top: auto; bottom: 18px; margin-top: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ig-btn, .reel-card, .reel-play, .reel-dot::before, .reel-modal { transition: none; }
+    .reel-arrow { transform: none !important; }
+  }
 </style>
 </head>
 <body>
@@ -36,6 +183,7 @@
   <header style="position: relative; z-index: 5; max-width: 1200px; margin: 0 auto; padding: 28px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
     <a href="#top" class="notranslate" style="text-decoration: none; color: #ece4d4; font-family: 'Mountains of Christmas', 'IM Fell English', serif; font-size: 2rem; letter-spacing: 1px">Kristen Tomaru</a>
     <nav aria-label="Main" style="display: flex; flex-wrap: wrap; align-items: center; gap: 28px; font-family: 'IM Fell English', serif; font-size: 1.1rem; font-style: italic">
+      <a href="#videos" style="color: #d6cde0; text-decoration: none">Videos</a>
       <a href="#books" style="color: #d6cde0; text-decoration: none">Books</a>
       <a href="#sketchbook" style="color: #d6cde0; text-decoration: none">Sketchbook</a>
       <a href="#about" style="color: #d6cde0; text-decoration: none">About</a>
@@ -95,7 +243,41 @@
   </div>
     <div aria-hidden="true" class="fog" style="position: absolute; top: 520px; left: -10%; width: 120%; height: 220px; pointer-events: none; z-index: 3; background: radial-gradient(ellipse at 30% 50%, rgba(200,190,220,0.10), transparent 60%), radial-gradient(ellipse at 75% 60%, rgba(200,190,220,0.08), transparent 55%)"></div>
     <div aria-hidden="true" class="fog2" style="position: absolute; top: 2400px; left: -10%; width: 120%; height: 260px; pointer-events: none; z-index: 0; background: radial-gradient(ellipse at 60% 50%, rgba(200,190,220,0.07), transparent 60%)"></div>
-  
+
+
+  <!-- VIDEOS -->
+  <section id="videos" class="videos" aria-labelledby="videos-h">
+    <div class="videos-intro">
+      <div class="puppet-col">
+        <img loading="lazy" class="frame" src="images/puppet.jpg" alt="One of Kristen Tomaru's handmade creature puppets" onerror="this.parentNode.remove()" style="width: 300px; height: 380px; object-fit: cover; transform: rotate(-2.5deg); border: 12px solid #ece4d4; box-shadow: 0 30px 60px rgba(0,0,0,0.85)">
+      </div>
+      <div class="text-col">
+        <p style="margin: 0; font-family: 'IM Fell English', serif; font-style: italic; color: #f2e3a6">caught on camera</p>
+        <h2 id="videos-h" style="margin: 6px 0 0; font-family: 'IM Fell English', serif; font-weight: 400; font-size: clamp(2.2rem, 4vw, 3.2rem); color: #f4ede0">Creatures in Motion</h2>
+        <p style="margin: 16px auto 0; max-width: 460px; color: #b8aec2">Puppets, works in progress and other things that crawled out of the studio. The newest monsters show up on Instagram first.</p>
+        <a class="ig-btn notranslate" href="https://www.instagram.com/bonesbgutzngore/" target="_blank" rel="noopener" style="margin-top: 30px">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"></circle></svg>
+          Follow @bonesbgutzngore
+        </a>
+      </div>
+    </div>
+
+    <!-- Carousel: items are built by the VIDEOS list in the script at the bottom of this file -->
+    <div class="reel-wrap">
+      <div class="reel-stage" id="reel-stage" tabindex="0" role="region" aria-roledescription="carousel" aria-label="Videos from the studio"></div>
+      <button type="button" class="reel-arrow prev" aria-label="Previous video">
+        <svg width="22" height="66" viewBox="0 0 24 72" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 4 L6 36 L18 68"></path></svg>
+      </button>
+      <button type="button" class="reel-arrow next" aria-label="Next video">
+        <svg width="22" height="66" viewBox="0 0 24 72" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 4 L18 36 L6 68"></path></svg>
+      </button>
+    </div>
+    <div class="reel-dots" id="reel-dots" role="group" aria-label="Choose a video"></div>
+  </section>
+
+  <div aria-hidden="true" style="position: relative; z-index: 2; background: #07060b; padding: 0 24px">
+    <div style="max-width: 1000px; margin: 0 auto; height: 1px; background: rgba(236,228,212,0.12)"></div>
+  </div>
 
   <!-- BOOKS -->
   <section id="books" style="position: relative; z-index: 2; background: #07060b; padding: 72px 24px 120px">
@@ -223,14 +405,37 @@
   <footer id="contact" style="position: relative; z-index: 2; background: #07060b; padding: 96px 24px 48px; text-align: center">
     <h2 style="margin: 0; font-family: 'IM Fell English', serif; font-weight: 400; font-size: clamp(2rem, 3.5vw, 2.8rem); color: #f4ede0">Send a letter by moonlight</h2>
     <p style="margin: 14px auto 0; max-width: 520px; color: #b8aec2">For readers, book clubs, commissions and press inquiries.</p>
-    <a class="btn" href="mailto:hello@example.com" style="margin-top: 28px; display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 28px; border-radius: 999px; border: 1px solid #f2e3a6; color: #f2e3a6; text-decoration: none; font-family: 'IM Fell English', serif; font-size: 1.1rem">
+    <a class="btn notranslate" href="mailto:bonesbgutzngore@gmail.com" style="margin-top: 28px; display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 28px; border-radius: 999px; border: 1px solid #f2e3a6; color: #f2e3a6; text-decoration: none; font-family: 'IM Fell English', serif; font-size: 1.1rem">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 7l9 6 9-6"></path></svg>
-      [her email address]
+      bonesbgutzngore@gmail.com
     </a>
+    <div style="margin-top: 22px">
+      <a class="ig-btn notranslate" href="https://www.instagram.com/bonesbgutzngore/" target="_blank" rel="noopener">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"></circle></svg>
+        Follow @bonesbgutzngore
+      </a>
+    </div>
     <div aria-hidden="true" style="margin: 72px auto 0; max-width: 1100px; height: 1px; background: rgba(236,228,212,0.12)"></div>
     <p style="margin: 24px 0 0; font-size: 0.95rem; color: #8f8599">© 2026 Kristen Tomaru. All rights reserved. All artwork by the author.</p>
   </footer>
 
+</div>
+
+<!-- VIDEO POP-UP PLAYER (filled in by the carousel script) -->
+<div class="reel-modal" id="reel-modal" role="dialog" aria-modal="true" aria-label="Video" hidden>
+  <button type="button" class="reel-modal-btn reel-modal-close notranslate" aria-label="Close video">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+  </button>
+  <button type="button" class="reel-modal-btn reel-modal-prev notranslate" aria-label="Previous video">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+  </button>
+  <button type="button" class="reel-modal-btn reel-modal-next notranslate" aria-label="Next video">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg>
+  </button>
+  <div class="reel-modal-panel">
+    <div class="reel-modal-frame" id="reel-modal-frame"></div>
+    <a class="reel-modal-link notranslate" id="reel-modal-link" href="#" target="_blank" rel="noopener">Open on Instagram ↗</a>
+  </div>
 </div>
 <script>
   function googleTranslateElementInit() {
@@ -271,6 +476,302 @@
       });
     });
     if (/googtrans=\/en\/ja/.test(document.cookie)) mark('ja');
+  })();
+</script>
+<script>
+  /* ============================================================
+     VIDEOS CAROUSEL
+     Each video is one line in the list below, written like this:
+       { link: '...', cover: '...', title: '...' },
+
+       link  - An Instagram Reel: copy the link from Instagram
+               (Share > Copy link), e.g.
+               'https://www.instagram.com/reel/ABC123xyz/'
+               Anything after a "?" in the link is removed for you.
+               OR a video file in the videos/ folder, e.g.
+               'videos/clip.mp4' (it plays right on the site).
+       cover - The picture shown on the card, e.g.
+               'images/reels/reel-6.png' (tall 9:16 works best).
+               If it's missing, the card shows a purple background.
+       title - The caption under the card. If the title has an
+               apostrophe in it, wrap it in "double quotes" instead.
+
+     Keep the curly braces, quotes and the comma after each line.
+     The order here is the order shown on the site.
+     ============================================================ */
+  var VIDEOS = [
+    { link: 'https://www.instagram.com/reel/DgE9ZO7M1H-/', cover: 'images/reel-1.png', title: 'Bones B Gutzngore' },
+    { link: 'https://www.instagram.com/reel/DgE96MTMjnv/', cover: 'images/reel-2.png', title: "Hatin' on Vampires" },
+    { link: 'https://www.instagram.com/reel/DgGigppy-vF/', cover: 'images/reel-3.png', title: 'Sensing Danger' },
+    { link: 'https://www.instagram.com/reel/DgKIAaZMzam/', cover: 'images/reel-4.png', title: 'Title 4' },
+    { link: 'https://www.instagram.com/reel/DgLmXrPzJo7/', cover: 'images/reel-5.png', title: 'Title 5' }
+  ];
+
+  (function () {
+    var stage = document.getElementById('reel-stage');
+    var dotsEl = document.getElementById('reel-dots');
+    var prev = document.querySelector('.reel-arrow.prev');
+    var next = document.querySelector('.reel-arrow.next');
+    var PLAY_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 5.5 L17.5 12 L6.5 18.5 Z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"></path></svg>';
+
+    // Turn each list entry into something the player understands
+    var items = [];
+    VIDEOS.forEach(function (v) {
+      if (!v || !v.link) return;
+      var link = String(v.link).trim().split('?')[0].split('#')[0];
+      var title = v.title ? String(v.title) : 'Video ' + (items.length + 1);
+      var ig = link.match(/instagram\.com\/(reels?|p|tv)\/([A-Za-z0-9_-]+)/i);
+      if (ig) {
+        var kind = /^reels?$/i.test(ig[1]) ? 'reel' : ig[1].toLowerCase();
+        items.push({ type: 'instagram', title: title, cover: v.cover,
+          embed: 'https://www.instagram.com/' + kind + '/' + ig[2] + '/embed/',
+          page: 'https://www.instagram.com/' + kind + '/' + ig[2] + '/' });
+      } else if (/\.(mp4|webm|m4v|mov|ogv)$/i.test(link)) {
+        items.push({ type: 'file', title: title, cover: v.cover, src: link });
+      } else {
+        console.warn('VIDEOS: skipped an entry that is not an Instagram link or video file:', v.link);
+      }
+    });
+
+    if (!items.length) {
+      stage.closest('.reel-wrap').remove();
+      dotsEl.remove();
+      return;
+    }
+
+    // ---- Coverflow: every card sits in the stage, styled by its distance from the active one ----
+    var n = items.length, active = 0, cards = [], dots = [];
+
+    function wrap(i) { return ((i % n) + n) % n; }
+
+    function makeCard(it, i) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'reel-card';
+      btn.setAttribute('aria-label', it.type === 'instagram'
+        ? 'Watch ' + it.title + ' on Instagram (opens in a new tab)'
+        : 'Play video: ' + it.title);
+      var cover = document.createElement('span');
+      cover.className = 'reel-cover';
+      if (it.cover) {
+        var img = document.createElement('img');
+        img.alt = '';
+        img.decoding = 'async';
+        img.draggable = false;
+        img.addEventListener('error', function () { img.remove(); }); // fallback gradient shows instead
+        img.src = it.cover;
+        cover.appendChild(img);
+      }
+      var play = document.createElement('span');
+      play.className = 'reel-play';
+      play.innerHTML = PLAY_ICON;
+      cover.appendChild(play);
+      var cap = document.createElement('span');
+      cap.className = 'reel-title';
+      cap.textContent = it.title;
+      btn.appendChild(cover);
+      btn.appendChild(cap);
+      // center card plays; a side card moves to the center
+      btn.addEventListener('click', function () {
+        if (i === active) watch(i); else go(i);
+      });
+      return btn;
+    }
+
+    items.forEach(function (it, i) {
+      var card = makeCard(it, i);
+      stage.appendChild(card);
+      cards.push(card);
+      var dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = 'reel-dot';
+      dot.setAttribute('aria-label', 'Show video ' + (i + 1) + ': ' + it.title);
+      dot.addEventListener('click', function () { go(i); });
+      dotsEl.appendChild(dot);
+      dots.push(dot);
+    });
+
+    function render() {
+      cards.forEach(function (card, i) {
+        var d = wrap(i - active);
+        if (d > n / 2) d -= n; // wrapped distance: -2 -1 0 +1 +2 ...
+        card.setAttribute('data-pos', Math.abs(d) <= 3 ? String(d) : (d < 0 ? 'far-l' : 'far-r'));
+        if (d === 0) {
+          card.tabIndex = 0; // only the center card is in the Tab order
+          card.removeAttribute('aria-hidden');
+        } else {
+          card.tabIndex = -1;
+          card.setAttribute('aria-hidden', 'true');
+        }
+      });
+      dots.forEach(function (dot, i) {
+        if (i === active) dot.setAttribute('aria-current', 'true');
+        else dot.removeAttribute('aria-current');
+      });
+    }
+
+    // center card: Instagram videos open on Instagram; local video files play in the pop-up
+    function watch(i) {
+      var it = items[i];
+      if (it.type === 'instagram') window.open(it.page, '_blank', 'noopener'); // link with anything after "?" removed
+      else openModal(i);
+    }
+
+    function go(i) {
+      var el = document.activeElement;
+      var cardHadFocus = !!el && cards.indexOf(el) !== -1;
+      active = wrap(i);
+      render();
+      if (cardHadFocus) cards[active].focus({ preventScroll: true });
+    }
+
+    prev.addEventListener('click', function () { go(active - 1); });
+    next.addEventListener('click', function () { go(active + 1); });
+
+    stage.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') { e.preventDefault(); go(active - 1); }
+      else if (e.key === 'ArrowRight') { e.preventDefault(); go(active + 1); }
+      else if ((e.key === 'Enter' || e.key === ' ') && e.target === stage) { e.preventDefault(); watch(active); }
+    });
+
+    // swipe: a sideways move over 40px rotates one card; a tap is still a click
+    var startX = 0, startY = 0, tracking = false, swiped = false;
+    stage.addEventListener('pointerdown', function (e) {
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      startX = e.clientX; startY = e.clientY; tracking = true; swiped = false;
+    });
+    stage.addEventListener('pointermove', function (e) {
+      if (!tracking) return;
+      var dx = e.clientX - startX, dy = e.clientY - startY;
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+        tracking = false;
+        swiped = true;
+        go(active + (dx < 0 ? 1 : -1));
+      }
+    });
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (type) {
+      stage.addEventListener(type, function () { tracking = false; });
+    });
+    // the click that ends a swipe shouldn't also open or move a card
+    stage.addEventListener('click', function (e) {
+      if (swiped) { e.stopPropagation(); e.preventDefault(); swiped = false; }
+    }, true);
+
+    render();
+
+    // ---- Pop-up player ----
+    var modal = document.getElementById('reel-modal');
+    var frame = document.getElementById('reel-modal-frame');
+    var igLink = document.getElementById('reel-modal-link');
+    var closeBtn = modal.querySelector('.reel-modal-close');
+    var mPrev = modal.querySelector('.reel-modal-prev');
+    var mNext = modal.querySelector('.reel-modal-next');
+    var current = -1, iframe = null, hideTimer = null;
+    var saved = { overflow: '', paddingRight: '' };
+
+    // the pop-up only plays local video files, so its prev/next step through those alone
+    var localCount = items.filter(function (it) { return it.type === 'file'; }).length;
+    if (localCount < 2) { mPrev.hidden = true; mNext.hidden = true; }
+
+    function step(dir) {
+      for (var k = 1; k < n; k++) {
+        var j = wrap(current + dir * k);
+        if (items[j].type === 'file') { show(j); return; }
+      }
+    }
+
+    function show(i) {
+      current = (i + items.length) % items.length;
+      var it = items[current];
+      frame.innerHTML = '';
+      iframe = null;
+      modal.setAttribute('aria-label', it.title);
+      if (it.type === 'instagram') {
+        iframe = document.createElement('iframe');
+        iframe.src = it.embed;
+        iframe.title = it.title + ' (Instagram video)';
+        iframe.setAttribute('allowfullscreen', '');
+        iframe.setAttribute('scrolling', 'no');
+        iframe.setAttribute('allow', 'autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share');
+        frame.appendChild(iframe);
+        // starting height until Instagram reports its real size
+        iframe.style.height = Math.round(iframe.clientWidth * 16 / 9 + 190) + 'px';
+        igLink.href = it.page;
+        igLink.hidden = false;
+      } else {
+        var video = document.createElement('video');
+        video.src = it.src;
+        video.controls = true;
+        video.autoplay = true;
+        video.playsInline = true;
+        video.setAttribute('playsinline', '');
+        video.setAttribute('aria-label', it.title);
+        frame.appendChild(video);
+        igLink.hidden = true;
+      }
+      frame.parentNode.scrollTop = 0;
+    }
+
+    function openModal(i) {
+      clearTimeout(hideTimer);
+      var root = document.documentElement;
+      saved.overflow = root.style.overflow;
+      saved.paddingRight = document.body.style.paddingRight;
+      var sbw = window.innerWidth - root.clientWidth;
+      root.style.overflow = 'hidden';
+      if (sbw > 0) document.body.style.paddingRight = sbw + 'px';
+      modal.hidden = false;
+      show(i);
+      void modal.offsetWidth; // let the fade-in start from 0
+      modal.classList.add('is-open');
+      closeBtn.focus();
+    }
+
+    function closeModal() {
+      if (modal.hidden) return;
+      var last = current;
+      modal.classList.remove('is-open');
+      frame.innerHTML = ''; // removing the player stops the sound
+      iframe = null;
+      current = -1;
+      document.documentElement.style.overflow = saved.overflow;
+      document.body.style.paddingRight = saved.paddingRight;
+      hideTimer = setTimeout(function () { modal.hidden = true; }, 260);
+      // center the carousel on the video that was last showing, and put focus back on it
+      if (last >= 0) {
+        active = last;
+        render();
+        cards[active].focus({ preventScroll: true });
+      }
+    }
+
+    closeBtn.addEventListener('click', closeModal);
+    mPrev.addEventListener('click', function () { step(-1); });
+    mNext.addEventListener('click', function () { step(1); });
+    // clicking the dark backdrop (not the player) closes
+    modal.addEventListener('click', function (e) {
+      if (e.target === modal || e.target === frame.parentNode) closeModal();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (current < 0) return;
+      if (e.key === 'Escape') { e.preventDefault(); closeModal(); }
+      else if (e.key === 'ArrowLeft' && localCount > 1) { e.preventDefault(); step(-1); }
+      else if (e.key === 'ArrowRight' && localCount > 1) { e.preventDefault(); step(1); }
+    });
+    // keep keyboard focus inside the pop-up while it's open
+    document.addEventListener('focusin', function (e) {
+      if (current >= 0 && !modal.contains(e.target)) closeBtn.focus();
+    });
+
+    // Instagram's embed tells the page how tall it wants to be
+    window.addEventListener('message', function (e) {
+      if (e.origin !== 'https://www.instagram.com' || !iframe || e.source !== iframe.contentWindow) return;
+      var data = e.data;
+      if (typeof data === 'string') { try { data = JSON.parse(data); } catch (err) { return; } }
+      if (data && data.type === 'MEASURE' && data.details && data.details.height) {
+        iframe.style.height = Math.round(data.details.height) + 'px';
+      }
+    });
   })();
 </script>
 <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
